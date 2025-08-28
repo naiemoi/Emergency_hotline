@@ -35,3 +35,39 @@ copyButtons.forEach(button => {
         });
     });
 });
+// Call button functionality
+callButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        let currentCoins = parseInt(coinCount.textContent);
+        if (currentCoins <= 0) {
+            alert('No coins left! Please add more coins to make a call.');
+            return;
+        }
+
+        // Show confirmation alert
+        if (confirm('Do you want to make this call? It will cost 20 coins.')) {
+            // Deduct 20 coins
+            coinCount.textContent = currentCoins - 20;
+
+            // Get service details
+            const card = button.closest('.relative');
+            const serviceName = card.querySelector('h3').textContent;
+            const number = card.querySelector('p.text-3xl').textContent;
+
+            // Remove "No calls" message if present
+            if (noCalls) {
+                noCalls.remove(); // Permanently remove the "No calls" message
+            }
+
+            // Add to call history
+            const historyItem = document.createElement('div');
+            historyItem.classList.add('p-2', 'border-b', 'border-gray-200');
+            historyItem.innerHTML = `
+                <p class="font-semibold">${serviceName}</p>
+                <p class="text-sm text-gray-600">${number}</p>
+                <p class="text-xs text-gray-400">${new Date().toLocaleString()}</p>
+            `;
+            historyList.appendChild(historyItem);
+        }
+    });
+});
