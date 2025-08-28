@@ -18,3 +18,20 @@ heartButtons.forEach(button => {
        
     });
 });
+// Copy button functionality
+copyButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const card = button.closest('.relative');
+        const number = card.querySelector('p.text-3xl').textContent;
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(number).then(() => {
+            let currentCopy = parseInt(copyCount.textContent);
+            copyCount.textContent = currentCopy + 1;
+            alert(`Copied: ${number}`);
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+            alert('Failed to copy number!');
+        });
+    });
+});
