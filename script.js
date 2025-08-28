@@ -71,3 +71,8 @@ callButtons.forEach(button => {
         }
     });
 });
+
+// Clear history button
+clearBtn.addEventListener('click', () => {
+    historyList.innerHTML = ''; // Clear history without adding "No calls" message
+});
